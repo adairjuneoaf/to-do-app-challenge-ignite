@@ -28,18 +28,3 @@ export const MainContent = styled.div`
   align-items: center;
   flex-direction: column;
 `
-
-export const FormContent = styled.form`
-  width: 100%;
-  height: auto;
-
-  margin: 0 auto;
-
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-
-  margin-top: -1.5rem;
-
-  gap: 0.5rem;
-`
