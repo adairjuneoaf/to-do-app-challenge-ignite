@@ -47,12 +47,16 @@ export const ButtonContainer = styled.button<ButtonProps>`
     transition: box-shadow 350ms;
   }
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: ${(props) =>
       (props.variant === 'default' && props.theme['gray-200']) ||
       (props.variant === 'save' && props.theme['blue-dark']) ||
       (props.variant === 'success' && props.theme['purple-dark'])};
 
     transition: background-color 250ms;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `

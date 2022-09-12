@@ -6,9 +6,14 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, PropsWit
   icon?: ReactElement
 }
 
-export const Button: React.FC<IButtonProps> = ({ children, icon, variant = 'default' }) => {
+export const Button: React.FC<IButtonProps> = ({
+  children,
+  icon,
+  variant = 'default',
+  ...props
+}) => {
   return (
-    <ButtonContainer variant={variant}>
+    <ButtonContainer {...props} variant={variant}>
       {children}
       {icon}
     </ButtonContainer>

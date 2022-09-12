@@ -1,12 +1,17 @@
-import React, { InputHTMLAttributes } from 'react'
+import React, { forwardRef, InputHTMLAttributes } from 'react'
+import { FieldErrors } from 'react-hook-form'
+import { FormInputsType } from '../../@types/form'
 import { InputComponent, InputContainer, InputErrorsMessage, InputLabel } from './styles'
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
-  errors?: string
+  errors?: FieldErrors<FormInputsType>
 }
 
-export const Input: React.FC<IInputProps> = ({ label, required = false, errors, ...props }) => {
+const Input: React.ForwardRefRenderFunction<HTMLInputElement, IInputProps> = (
+  { label, required = false, errors, ...props },
+  ref,
+) => {
   return (
     <InputContainer>
       {label && (
@@ -14,8 +19,17 @@ export const Input: React.FC<IInputProps> = ({ label, required = false, errors, 
           {label}
         </InputLabel>
       )}
-      <InputComponent id={props.name} name={props.name} required={required} {...props} />
-      {errors && <InputErrorsMessage>{errors}</InputErrorsMessage>}
+      <InputComponent
+        {...props}
+        ref={ref}
+        id={props.name}
+        name={props.name}
+        required={required}
+        isError={!!errors?.task}
+      />
+      {errors?.task && <InputErrorsMessage>{errors.task?.message}</InputErrorsMessage>}
     </InputContainer>
   )
 }
+
+export default forwardRef(Input)

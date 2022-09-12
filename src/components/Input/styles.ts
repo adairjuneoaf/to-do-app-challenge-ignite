@@ -1,7 +1,11 @@
 import styled from 'styled-components'
 
-export interface ILabelProps {
+export interface LabelProps {
   required?: boolean
+}
+
+export interface InputProps {
+  isError: boolean
 }
 
 export const InputContainer = styled.div`
@@ -13,7 +17,7 @@ export const InputContainer = styled.div`
   flex-direction: column;
 `
 
-export const InputLabel = styled.label<ILabelProps>`
+export const InputLabel = styled.label<LabelProps>`
   font-size: 1rem;
   font-weight: 400;
 
@@ -25,7 +29,7 @@ export const InputLabel = styled.label<ILabelProps>`
   }
 `
 
-export const InputComponent = styled.input`
+export const InputComponent = styled.input<InputProps>`
   width: 100%;
   height: auto;
 
@@ -37,16 +41,17 @@ export const InputComponent = styled.input`
 
   outline: 0;
   border: 0;
-  box-shadow: 0 0 0 2px ${(props) => props.theme['gray-700']};
-
-  &:focus {
-    box-shadow: 0 0 0 2px ${(props) => props.theme['purple-dark']};
-
-    transition: box-shadow 500ms;
-  }
+  box-shadow: 0 0 0 2px ${(props) => (props.isError ? props.theme.danger : props.theme['gray-700'])};
 
   color: ${(props) => props.theme['gray-200']};
   background-color: ${(props) => props.theme['gray-500']};
+
+  &:focus,
+  &:hover {
+    box-shadow: 0 0 0 2px
+      ${(props) => (props.isError ? props.theme.danger : props.theme['purple-dark'])};
+    transition: box-shadow 500ms;
+  }
 
   &::placeholder {
     color: ${(props) => props.theme['gray-300']};
@@ -54,15 +59,21 @@ export const InputComponent = styled.input`
 `
 
 export const InputErrorsMessage = styled.div`
-  width: 100%;
+  width: fit-content;
+  max-width: 50%;
   height: auto;
+
+  position: absolute;
+  margin-top: calc((16px + 2.25rem) + 6px);
+  margin-left: 2px;
+
+  display: flex;
+  flex-wrap: wrap;
 
   font-size: 0.875rem;
   font-weight: 400;
 
   color: ${(props) => props.theme.danger};
-
-  margin-top: 4px;
 
   transition: all 350ms;
 `
