@@ -20,4 +20,26 @@ export const HeaderContent = styled.header`
 export const MainContent = styled.div`
   max-width: 720px;
   height: auto;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+`
+
+export const FormContent = styled.form`
+  width: 100%;
+  height: auto;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  margin-top: -1.5rem;
+
+  gap: 0.5rem;
 `
