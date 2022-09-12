@@ -4,4 +4,5 @@ export interface TaskProps {
   description: string
   createdAt: string
   status: TaskStatus
+  id: string
 }

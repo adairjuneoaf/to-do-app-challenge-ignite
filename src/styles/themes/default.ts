@@ -7,6 +7,7 @@ export enum defaultTheme {
   'purple' = '#8284FA',
   'blue-dark' = '#1E6F9F',
   'purple-dark' = '#5E60CE',
+  'blue-shadow' = 'rgba(78, 168, 222, 0.2)',
 
   'gray-100' = '#F2F2F2',
   'gray-200' = '#D9D9D9',

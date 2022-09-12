@@ -1,14 +1,19 @@
 import { useState } from 'react'
 import { BsClipboardX } from 'react-icons/bs'
+import { FiTrash2 } from 'react-icons/fi'
 import { useTheme } from 'styled-components'
+import { v4 as uuid } from 'uuid'
 import { TaskProps } from '../../../../@types/task'
 import {
   BadgeNumber,
   EmptyListContent,
+  FinishedButton,
+  ItemList,
   ListContainer,
   ListContent,
   ListHeader,
   Title,
+  TrashButton,
 } from './styles'
 
 export const ListTask = () => {
@@ -17,11 +22,13 @@ export const ListTask = () => {
       description: 'Lavar louça',
       createdAt: new Date().toJSON(),
       status: 'in-progress',
+      id: uuid(),
     },
     {
       description: 'Dar banho no PET',
       createdAt: new Date().toJSON(),
       status: 'finished',
+      id: uuid(),
     },
   ])
 
@@ -47,7 +54,17 @@ export const ListTask = () => {
             <p>Crie tarefas e organize seus itens a fazer</p>
           </EmptyListContent>
         ) : (
-          <div>existe tarefas</div>
+          taskList.map((task) => {
+            return (
+              <ItemList key={task.id} status={task.status}>
+                <FinishedButton type='radio' defaultChecked={task.status === 'finished'} />
+                <p>{task.description}</p>
+                <TrashButton type='button'>
+                  <FiTrash2 fontSize={16} color={theme['gray-300']} />
+                </TrashButton>
+              </ItemList>
+            )
+          })
         )}
       </ListContent>
     </ListContainer>
