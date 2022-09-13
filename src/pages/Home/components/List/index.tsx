@@ -1,9 +1,8 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import { BsClipboardX } from 'react-icons/bs'
 import { FiTrash2 } from 'react-icons/fi'
 import { useTheme } from 'styled-components'
-import { v4 as uuid } from 'uuid'
-import { TaskProps } from '../../../../@types/task'
+import { TaskContext } from '../../../../contexts/taskContext'
 import {
   BadgeNumber,
   EmptyListContent,
@@ -17,20 +16,7 @@ import {
 } from './styles'
 
 export const ListTask = () => {
-  const [taskList] = useState<Array<TaskProps>>([
-    {
-      description: 'Lavar louça',
-      createdAt: new Date().toJSON(),
-      status: 'in-progress',
-      id: uuid(),
-    },
-    {
-      description: 'Dar banho no PET',
-      createdAt: new Date().toJSON(),
-      status: 'finished',
-      id: uuid(),
-    },
-  ])
+  const { tasks } = useContext(TaskContext)
 
   const theme = useTheme()
 
@@ -45,7 +31,7 @@ export const ListTask = () => {
         </Title>
       </ListHeader>
       <ListContent>
-        {taskList.length === 0 ? (
+        {tasks.length === 0 ? (
           <EmptyListContent>
             <span>
               <BsClipboardX fontSize={56} color={theme['gray-400']} />
@@ -54,7 +40,7 @@ export const ListTask = () => {
             <p>Crie tarefas e organize seus itens a fazer</p>
           </EmptyListContent>
         ) : (
-          taskList.map((task) => {
+          tasks.map((task) => {
             return (
               <ItemList key={task.id} status={task.status}>
                 <FinishedButton type='radio' defaultChecked={task.status === 'finished'} />
