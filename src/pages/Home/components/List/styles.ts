@@ -159,6 +159,8 @@ export const FinishedButton = styled.input`
     color: ${(props) => props.theme.purple};
     background-color: ${(props) => props.theme['purple-dark']};
 
+    cursor: not-allowed;
+
     &::after {
       content: url('/public/check.svg');
       color: ${(props) => props.theme['gray-200']};

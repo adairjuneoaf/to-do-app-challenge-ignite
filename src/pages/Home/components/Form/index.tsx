@@ -1,15 +1,18 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FiPlusCircle } from 'react-icons/fi'
 import { FormInputsType } from '../../../../@types/form'
 import { Button } from '../../../../components/Button'
 import Input from '../../../../components/Input'
+import { TaskContext } from '../../../../contexts/taskContext'
 import { FormContent } from './styles'
 
 export const FormTask = () => {
+  const { addNewTask } = useContext(TaskContext)
+
   const { register, handleSubmit, formState, setFocus, reset } = useForm<FormInputsType>({
     defaultValues: {
-      task: '',
+      taskDescription: '',
     },
     mode: 'all',
   })
@@ -17,12 +20,13 @@ export const FormTask = () => {
   const { errors, isValid } = formState
 
   const submitNewTask: SubmitHandler<FormInputsType> = (data) => {
-    console.log(data)
+    addNewTask(data.taskDescription)
     reset()
+    setFocus('taskDescription')
   }
 
   useEffect(() => {
-    setFocus('task')
+    setFocus('taskDescription')
   }, [])
 
   return (
@@ -31,7 +35,7 @@ export const FormTask = () => {
         errors={errors}
         type='text'
         placeholder='Adicione uma nova tarefa'
-        {...register('task', {
+        {...register('taskDescription', {
           minLength: {
             value: 6,
             message: 'Mínimo de 6 caracteres.',

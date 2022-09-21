@@ -16,7 +16,7 @@ import {
 } from './styles'
 
 export const ListTask = () => {
-  const { tasks } = useContext(TaskContext)
+  const { tasks, countTotalTasks, countTasksCompleted } = useContext(TaskContext)
 
   const theme = useTheme()
 
@@ -24,10 +24,10 @@ export const ListTask = () => {
     <ListContainer>
       <ListHeader>
         <Title variant='blue'>
-          Tarefas criadas <BadgeNumber>00</BadgeNumber>
+          Tarefas criadas <BadgeNumber>{countTotalTasks}</BadgeNumber>
         </Title>
         <Title variant='purple'>
-          Tarefas concluídas <BadgeNumber>00</BadgeNumber>
+          Tarefas concluídas <BadgeNumber>{countTasksCompleted}</BadgeNumber>
         </Title>
       </ListHeader>
       <ListContent>

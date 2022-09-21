@@ -14,8 +14,34 @@ export const TasksReducer = (state: TasksReducerState, action: TasksReducerActio
       }
 
       return {
-        ...state,
         tasks: [...state.tasks, newTaskData],
+      }
+    }
+
+    case TasksActionTypes.REMOVE_TASK: {
+      const newStateTasks = state.tasks.filter((task) => task.id !== action.payload.id)
+
+      return {
+        tasks: newStateTasks,
+      }
+    }
+
+    case TasksActionTypes.COMPLETED_TASK: {
+      const newStateTasks = state.tasks.map((task) => {
+        if (task.id === action.payload.id) {
+          const taskCompleted: TaskProps = {
+            ...task,
+            status: 'finished',
+          }
+
+          return taskCompleted
+        } else {
+          return task
+        }
+      })
+
+      return {
+        tasks: newStateTasks,
       }
     }
 
